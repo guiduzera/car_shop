@@ -17,4 +17,6 @@ carRoute.get('/', carControllers.read);
 
 carRoute.get('/:id', carControllers.readOne);
 
+carRoute.put('/:id', carControllers.update);
+
 export default carRoute;

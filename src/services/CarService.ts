@@ -33,4 +33,19 @@ export default class CarService implements IService<ICar> {
     }
     return oneCar;
   }
+
+  async update(str: string, obj: ICar): Promise<ICar | null> {
+    if (str.length !== 24) {
+      throw new CustomError('Id must have 24 hexadecimal characters', 400);
+    }
+    const parsed = CarZodSchema.safeParse(obj);
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+    const updatedCar = await this.carModel.update(str, parsed.data);
+    if (!updatedCar) {
+      throw new CustomError('Object not found', 404);
+    }
+    return updatedCar;
+  }
 }
