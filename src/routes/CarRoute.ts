@@ -15,4 +15,6 @@ carRoute.post('/', carControllers.create);
 
 carRoute.get('/', carControllers.read);
 
+carRoute.get('/:id', carControllers.readOne);
+
 export default carRoute;
