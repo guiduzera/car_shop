@@ -12,8 +12,13 @@ export default class CarController {
   create = async (
     req: Request,
     res: Response<ICar>,
-  ): Promise<Response | void> => {
+  ): Promise<Response> => {
     const car = await this.carService.create(req.body);
     return res.status(201).json(car);
+  };
+
+  read = async (req: Request, res: Response): Promise<Response> => {
+    const allCars = await this.carService.read();
+    return res.status(200).json(allCars);
   };
 }
