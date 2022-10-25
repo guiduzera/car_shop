@@ -10,12 +10,24 @@ const createResult = {
 }
 
 const createRequest = {
-  model: "Ferrari Maranello",
-  year: 1963,
-  color: "red",
-  buyValue: 3500000,
-  seatsQty: 2,
-  doorsQty: 2
+	model: "Ferrari Maranello",
+	year: 1963,
+	color: "red",
+	buyValue: 3500000,
+	seatsQty: 2,
+	doorsQty: 2
 }
 
-export { createResult, createRequest }
+const readResult = [
+	{
+		_id: "635829ff7c71d24ef627abd6",
+		model: "Ferrari Maranello",
+		year: 1963,
+		color: "red",
+		buyValue: 3500000,
+		doorsQty: 2,
+		seatsQty: 2
+	}
+]
+
+export { createResult, createRequest, readResult }

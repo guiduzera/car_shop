@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import chai from 'chai';
 import Car from '../../../models/Car';
 import CarService from '../../../services/CarService';
-import { createRequest, createResult } from '../mocks/carMocks';
+import { createRequest, createResult, readResult } from '../mocks/carMocks';
 const { expect } = chai;
 
 describe('testando camada service de car', () => {
@@ -11,6 +11,7 @@ describe('testando camada service de car', () => {
 
   before(async () => {
     sinon.stub(car, 'create').resolves(createResult);
+    sinon.stub(car, 'read').resolves(readResult);
   });
 
   after(()=>{
@@ -21,6 +22,13 @@ describe('testando camada service de car', () => {
     it('corretamente criado!', async () => {
       const result = await carService.create(createRequest);
       expect(result).to.be.deep.equal(createResult);
+    });
+  });
+
+  describe('quando o método read é chamado', () => {
+    it('corretamente lido!', async () => {
+      const result = await carService.read();
+      expect(result).to.be.deep.equal(readResult);
     });
   });
 });
