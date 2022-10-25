@@ -12,6 +12,7 @@ describe('testando camada service de car', () => {
   before(async () => {
     sinon.stub(car, 'create').resolves(createResult);
     sinon.stub(car, 'read').resolves(readResult);
+    sinon.stub(car, 'readOne').resolves(createResult);
   });
 
   after(()=>{
@@ -29,6 +30,13 @@ describe('testando camada service de car', () => {
     it('corretamente lido!', async () => {
       const result = await carService.read();
       expect(result).to.be.deep.equal(readResult);
+    });
+  });
+
+  describe('quando o método readOne é chamado', () => {
+    it('corretamente lido!', async () => {
+      const result = await carService.readOne('6356cba5b3136ac5c994172e');
+      expect(result).to.be.deep.equal(createResult);
     });
   });
 });
