@@ -6,9 +6,13 @@ import IService from '../interfaces/IService';
 
 export default class CarService implements IService<ICar> {
   private carModel: IModel<ICar>;
+  private lengthError: string;
+  private notfoundError: string;
 
   constructor(model: IModel<ICar>) {
     this.carModel = model;
+    this.lengthError = 'Id must have 24 hexadecimal characters';
+    this.notfoundError = 'Object not found';
   }
 
   async create(obj: ICar): Promise<ICar> {
@@ -25,18 +29,18 @@ export default class CarService implements IService<ICar> {
 
   async readOne(str: string): Promise<ICar | null> {
     if (str.length !== 24) {
-      throw new CustomError('Id must have 24 hexadecimal characters', 400);
+      throw new CustomError(this.lengthError, 400);
     }
     const oneCar = await this.carModel.readOne(str);
     if (!oneCar) {
-      throw new CustomError('Object not found', 404);
+      throw new CustomError(this.notfoundError, 404);
     }
     return oneCar;
   }
 
   async update(str: string, obj: ICar): Promise<ICar | null> {
     if (str.length !== 24) {
-      throw new CustomError('Id must have 24 hexadecimal characters', 400);
+      throw new CustomError(this.lengthError, 400);
     }
     const parsed = CarZodSchema.safeParse(obj);
     if (!parsed.success) {
@@ -44,8 +48,19 @@ export default class CarService implements IService<ICar> {
     }
     const updatedCar = await this.carModel.update(str, parsed.data);
     if (!updatedCar) {
-      throw new CustomError('Object not found', 404);
+      throw new CustomError(this.notfoundError, 404);
     }
     return updatedCar;
+  }
+
+  async delete(str: string): Promise<ICar | null> {
+    if (str.length !== 24) {
+      throw new CustomError(this.lengthError, 400);
+    }
+    const deletedCar = await this.carModel.delete(str);
+    if (!deletedCar) {
+      throw new CustomError(this.notfoundError, 404);
+    }
+    return deletedCar;
   }
 }
