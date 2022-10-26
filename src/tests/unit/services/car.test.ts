@@ -20,6 +20,7 @@ describe('testando camada service de car', () => {
     sinon.stub(car, 'read').resolves(readResult);
     sinon.stub(car, 'readOne').resolves(createResult);
     sinon.stub(car, 'update').resolves(carMockUpdateWithId);
+    sinon.stub(car, 'delete').resolves(carMockUpdateWithId);
   });
 
   after(()=>{
@@ -50,6 +51,13 @@ describe('testando camada service de car', () => {
   describe('quando o método update é chamado', () => {
     it('corretamente atualizado!', async () => {
       const result = await carService.update('4edd40c86762e0fb12000003', carMockUpdate);
+      expect(result).to.be.deep.equal(carMockUpdateWithId);
+    });
+  });
+
+  describe('quando o método delete é chamado', () => {
+    it('corretamente deletado!', async () => {
+      const result = await carService.delete('4edd40c86762e0fb12000003');
       expect(result).to.be.deep.equal(carMockUpdateWithId);
     });
   });
