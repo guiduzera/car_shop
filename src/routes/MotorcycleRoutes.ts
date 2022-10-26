@@ -13,4 +13,6 @@ const mController = new MotorcycleController(mService);
 
 motorcycleRoute.post('/', mController.create);
 
+motorcycleRoute.get('/', mController.read);
+
 export default motorcycleRoute;
